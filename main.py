@@ -10,6 +10,7 @@ host = 'localhost'
 user = 'root'                
 password = ''                
 
+# Tentando se conectar a base de dados MySQL
 try:
 	db_connection = mysql.connector.connect(host = host, user = user, password = password)
 	print("\nConexão com a base de dados realizada!\n")
@@ -34,6 +35,7 @@ cursor.execute("CREATE TABLE IF NOT EXISTS Pessoas (ID int auto_increment, Nome 
 ###############################################################################################################
 def create():
     cursor = db_connection.cursor()
+    # Validando os dados de input do Nome
     while True:
         Nome = input("Digite o seu nome: ").title()
         try:
@@ -46,6 +48,7 @@ def create():
                 break
         except:
             print("Por favor, utilize apenas letras.")
+    # Validando os dados de input do CPF
     while True:
         cpf = input("Digite o seu CPF: ")
         try:
@@ -71,6 +74,7 @@ def create():
 ###############################################################################################################
 def read():
     cursor = db_connection.cursor()
+    # Apresentando um menu de seleção
     while True:
         print("\n")
         print("="*20)
@@ -83,12 +87,14 @@ def read():
         choose = input("\nDigite a opção desejada: ")
         try:
             choose = int(choose)
+            # Validando os dados de input do choose
             if choose < 0:
                 print("Por favor digite uma opção válida!")
             elif choose > 3:
                 print("Por favor digite uma opção válida!")
             elif choose == 0:
                 print("Por favor digite uma opção válida!")
+            # Validando os dados de input do Nome
             elif choose == 1:
                 while True:
                     Nome = input("\nDigite o nome a ser localizado: ").title()
@@ -112,7 +118,7 @@ def read():
                     print(dados_lidos)
                     print("\nDados apresentados com sucesso.")
                     break
-
+            # Validando os dados de input do CPF
             elif choose == 2:
                 while True:
                     cpf = input("\nDigite o CPF a ser localizado: ")
@@ -136,11 +142,35 @@ def read():
                     print(dados_lidos)
                     print("\nDados apresentados com sucesso.")
                     break
+
+            # Apresentando os dados de toda a base
+            elif choose == 3:
+                sql = "SELECT * FROM Pessoas "
+                cursor.execute(sql)
+                dados_lidos = cursor.fetchall()
+                for cadastro in (dados_lidos):
+                    print(cadastro)
+                print("\nDados apresentados com sucesso.")
+                break
+
         except:
             print("Por favor utilize apenas números.")
+            
+
 ###############################################################################################################
 
 
-# create()
-read()
+print("\n")
+print("="*20)
+print("  MENU PRINCIPAL")
+print("="*20)
+print("1 - Create")
+print("2 - Read")
+print("3 - Update")
+print("3 - Delete")
+choose2 = input("\nSelecione uma das opções:")
+if choose2 == 1:
+    create()
+elif choose2 == 2:
+    read()
 
