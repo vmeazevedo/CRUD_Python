@@ -104,6 +104,10 @@ def read():
 ###############################################################################################################
 # Update
 ###############################################################################################################
+def update():
+    cursor = db_connection.cursor()
+    
+
 
 ###############################################################################################################
 
@@ -135,16 +139,29 @@ def delete():
             for cadastro in (dados_lidos):
                 print(cadastro)
             print("\nDados apresentados com sucesso.")
-            
             break
         
         elif choose == '2':
             cpf = input("Informe o cpf: ")
             sql = "DELETE FROM Pessoas WHERE cpf = '{}'".format(cpf)
             cursor.execute(sql)
-            print("Dado excluído com sucesso!")
+            db_connection.commit()
+            print("\nDado excluído com sucesso! Apresentando a base de dados: ")
+            sql2 = "SELECT * FROM Pessoas"
+            cursor.execute(sql2)
+            dados_lidos = cursor.fetchall()
+            for cadastro in (dados_lidos):
+                print(cadastro)
+            print("\nDados apresentados com sucesso.")
             break
-
+        
+        elif choose == '3':
+            sql = "DELETE FROM Pessoas"
+            cursor.execute(sql)
+            db_connection.commit()
+            print("\nA base foi excluída com sucesso!")
+            break
+        break
 ###############################################################################################################
 
 print("\n")
@@ -160,5 +177,7 @@ if choose2 == '1':
     create()
 elif choose2 == '2':
     read()
+elif choose2 == '3':
+    update()
 elif choose2 == '4':
     delete()
