@@ -90,13 +90,60 @@ def read():
 
             # Apresentando os dados de toda a base
         elif choose == '3':
-            sql = "SELECT * FROM Pessoas "
+            sql = "SELECT * FROM Pessoas"
             cursor.execute(sql)
             dados_lidos = cursor.fetchall()
             for cadastro in (dados_lidos):
                 print(cadastro)
-                print("\nDados apresentados com sucesso.")
-                break
+            print("\nDados apresentados com sucesso.")    
+                
+        break
+
+###############################################################################################################
+
+###############################################################################################################
+# Update
+###############################################################################################################
+
+###############################################################################################################
+
+###############################################################################################################
+# Delete
+###############################################################################################################
+def delete():
+    cursor = db_connection.cursor()
+    while True:
+        print("\n")
+        print("="*20)
+        print("       MENU")
+        print("="*20)
+        print("Você deseja deletar: ")
+        print("1 - Nome")
+        print("2 - CPF")
+        print("3 - A base toda")
+        choose = input("\nDigite a opção desejada: ")
+        
+        if choose == '1':
+            Nome = input("Informe o nome: ").title()
+            sql = "DELETE FROM Pessoas WHERE Nome = '{}'".format(str(Nome))
+            cursor.execute(sql)
+            db_connection.commit()
+            print("\nDado excluído com sucesso! Apresentando a base de dados: ")
+            sql2 = "SELECT * FROM Pessoas"
+            cursor.execute(sql2)
+            dados_lidos = cursor.fetchall()
+            for cadastro in (dados_lidos):
+                print(cadastro)
+            print("\nDados apresentados com sucesso.")
+            
+            break
+        
+        elif choose == '2':
+            cpf = input("Informe o cpf: ")
+            sql = "DELETE FROM Pessoas WHERE cpf = '{}'".format(cpf)
+            cursor.execute(sql)
+            print("Dado excluído com sucesso!")
+            break
 
 ###############################################################################################################
 
@@ -113,3 +160,5 @@ if choose2 == '1':
     create()
 elif choose2 == '2':
     read()
+elif choose2 == '4':
+    delete()
