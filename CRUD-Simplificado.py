@@ -23,10 +23,14 @@ except mysql.connector.Error as error:
 		print(error)
 
 cursor = db_connection.cursor()
-# Criando a database e a tabela
-# cursor.execute("DROP DATABASE Formulario")
+
+# Dropando a base de dados
+# cursor.execute("DROP DATABASE Crud2")
+# Criando uma base de dados
 cursor.execute("CREATE DATABASE IF NOT EXISTS Crud2")
+# Selecionando a nossa base
 cursor.execute("use Crud2")
+# Criando nossa tabela com alguns parâmetros
 cursor.execute("CREATE TABLE IF NOT EXISTS Pessoas (ID int auto_increment, Nome varchar(50) not null, cpf varchar(50) not null, Data TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, primary key (id))")
 ###############################################################################################################
 
@@ -35,9 +39,9 @@ cursor.execute("CREATE TABLE IF NOT EXISTS Pessoas (ID int auto_increment, Nome 
 ###############################################################################################################
 def create():
     cursor = db_connection.cursor()
-    # Validando os dados de input do Nome
+    # Dados de input da variável nome
     Nome = input("Digite o seu nome: ").title()
-    # Validando os dados de input do CPF
+    # Dados de input da variável cpf
     cpf = input("Digite o seu CPF: ")
     #Realizando a inserção dos dados em nosso banco de dados
     sql = "INSERT INTO Pessoas (Nome, CPF) VALUES ('{}','{}')".format(Nome, cpf)
@@ -62,12 +66,13 @@ def read():
         print("2 - CPF")
         print("3 - A base toda")
         choose = input("\nDigite a opção desejada: ")
-        # Validando os dados de input do Nome
+        # Dados de input da variável nome
         if choose == '1':
             Nome = input("\nDigite o nome a ser localizado: ").title()
             sql = "SELECT * FROM Pessoas WHERE Nome = '{}'".format(Nome)
             cursor.execute(sql)
             dados_lidos = cursor.fetchall()
+            # Validação se a variavel dados_lidos retornar em branco
             if dados_lidos == []:
                 print("Erro: Não encontramos {} em nossa base.". format(Nome))
             else:
@@ -75,12 +80,13 @@ def read():
                 print("\nDados apresentados com sucesso.")
                 break
         
-        # Validando os dados de input do CPF
+        # Dados de input da variável cpf
         elif choose == '2':
             cpf = input("\nDigite o CPF a ser localizado: ")
             sql = "SELECT * FROM Pessoas WHERE cpf = '{}'".format(cpf)
             cursor.execute(sql)
             dados_lidos = cursor.fetchall()
+            # Validação se a variavel dados_lidos retornar em branco
             if dados_lidos == []:
                 print("Erro: Não encontramos {} em nossa base.". format(cpf))
             else:
@@ -88,7 +94,7 @@ def read():
                 print("\nDados apresentados com sucesso.")
                 break
 
-            # Apresentando os dados de toda a base
+        # Apresentando os dados de toda a base
         elif choose == '3':
             sql = "SELECT * FROM Pessoas"
             cursor.execute(sql)
@@ -106,6 +112,7 @@ def read():
 ###############################################################################################################
 def update():
     cursor = db_connection.cursor()
+    # Apresentando um menu de seleção
     while True:
         print("\n")
         print("="*20)
@@ -116,6 +123,7 @@ def update():
         print("2 - CPF")
         choose = input("\nDigite a opção desejada: ")
 
+        # Dados de input da variável nome
         if choose == '1':
             Nome = input("Digite o nome a ser atualizado: ").title()
             Nome2 = input("Informe o nome corrigido: ").title()
@@ -123,6 +131,7 @@ def update():
             cursor.execute(sql)
             db_connection.commit()
             print("\nDados atualizados com sucesso")
+            # Realizando um print da variável para confirmar a atualização
             sql2 = "SELECT * FROM Pessoas WHERE Nome = '{}'".format(Nome2)
             cursor.execute(sql2)
             dados_lidos = cursor.fetchall()
@@ -130,6 +139,7 @@ def update():
             print("\nDados apresentados com sucesso.")
             break
         
+        # Dados de input da variável cpf
         elif choose == '2':
             cpf = input("Digite o nome a ser atualizado: ")
             cpf2 = input("Informe o nome corrigido: ")
@@ -137,6 +147,7 @@ def update():
             cursor.execute(sql)
             db_connection.commit()
             print("\nDados atualizados com sucesso")
+            # Realizando um print da variável para confirmar a atualização
             sql2 = "SELECT * FROM Pessoas WHERE cpf = '{}'".format(cpf2)
             cursor.execute(sql2)
             dados_lidos = cursor.fetchall()
@@ -152,6 +163,7 @@ def update():
 ###############################################################################################################
 def delete():
     cursor = db_connection.cursor()
+    # Apresentando um menu de seleção
     while True:
         print("\n")
         print("="*20)
@@ -162,13 +174,15 @@ def delete():
         print("2 - CPF")
         print("3 - A base toda")
         choose = input("\nDigite a opção desejada: ")
-        
+
+        # Dados de input da variável nome
         if choose == '1':
             Nome = input("Informe o nome: ").title()
             sql = "DELETE FROM Pessoas WHERE Nome = '{}'".format(str(Nome))
             cursor.execute(sql)
             db_connection.commit()
             print("\nDado excluído com sucesso! Apresentando a base de dados: ")
+            # Realizando um print da variável para confirmar a deleção
             sql2 = "SELECT * FROM Pessoas"
             cursor.execute(sql2)
             dados_lidos = cursor.fetchall()
@@ -177,12 +191,14 @@ def delete():
             print("\nDados apresentados com sucesso.")
             break
         
+        # Dados de input da variável cpf
         elif choose == '2':
             cpf = input("Informe o cpf: ")
             sql = "DELETE FROM Pessoas WHERE cpf = '{}'".format(cpf)
             cursor.execute(sql)
             db_connection.commit()
             print("\nDado excluído com sucesso! Apresentando a base de dados: ")
+            # Realizando um print da variável para confirmar a deleção
             sql2 = "SELECT * FROM Pessoas"
             cursor.execute(sql2)
             dados_lidos = cursor.fetchall()
@@ -201,9 +217,9 @@ def delete():
 ###############################################################################################################
 
 print("\n")
-print("="*20)
-print("  MENU PRINCIPAL")
-print("="*20)
+print("="*25)
+print("  CRUD - SIMPLIFICADO")
+print("="*25)
 print("1 - Create")
 print("2 - Read")
 print("3 - Update")
