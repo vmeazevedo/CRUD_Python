@@ -106,7 +106,43 @@ def read():
 ###############################################################################################################
 def update():
     cursor = db_connection.cursor()
-    
+    while True:
+        print("\n")
+        print("="*20)
+        print("       MENU")
+        print("="*20)
+        print("Você deseja atualizar: ")
+        print("1 - Nome")
+        print("2 - CPF")
+        choose = input("\nDigite a opção desejada: ")
+
+        if choose == '1':
+            Nome = input("Digite o nome a ser atualizado: ").title()
+            Nome2 = input("Informe o nome corrigido: ").title()
+            sql = "UPDATE Pessoas SET Nome = '{}' WHERE Nome = '{}'".format(Nome2, Nome)
+            cursor.execute(sql)
+            db_connection.commit()
+            print("\nDados atualizados com sucesso")
+            sql2 = "SELECT * FROM Pessoas WHERE Nome = '{}'".format(Nome2)
+            cursor.execute(sql2)
+            dados_lidos = cursor.fetchall()
+            print(dados_lidos)
+            print("\nDados apresentados com sucesso.")
+            break
+        
+        elif choose == '2':
+            cpf = input("Digite o nome a ser atualizado: ")
+            cpf2 = input("Informe o nome corrigido: ")
+            sql = "UPDATE Pessoas SET cpf = '{}' WHERE cpf = '{}'".format(cpf2, cpf)
+            cursor.execute(sql)
+            db_connection.commit()
+            print("\nDados atualizados com sucesso")
+            sql2 = "SELECT * FROM Pessoas WHERE cpf = '{}'".format(cpf2)
+            cursor.execute(sql2)
+            dados_lidos = cursor.fetchall()
+            print(dados_lidos)
+            print("\nDados apresentados com sucesso.")
+            break
 
 
 ###############################################################################################################
