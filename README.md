@@ -5,7 +5,7 @@ This algorithm is a CRUD made in python that has the purpose of the four basic o
 You will need to install the library below:
 - mysql-connector
 
-## Funcionamento
+## Operation
 ## Home screen
 When initializing the code, the first screen that is presented is the selection menu screen below:
 
