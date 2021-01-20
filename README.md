@@ -5,6 +5,13 @@ This algorithm is a CRUD made in python that has the purpose of the four basic o
 You will need to install the library below:
 - mysql-connector
 
+You will need to instal MySQL and XAMPP also:
+- MySQL installation tutorial:
+https://www.youtube.com/watch?v=5JbAOWJbgIA&list=PLHz_AreHm4dkBs-795Dsgvau_ekxg8g1r&index=2&ab_channel=CursoemV%C3%ADdeo
+
+- XAMPP installation tutorial:
+https://www.youtube.com/watch?v=R2HrwSQ6EPM&list=PLHz_AreHm4dkBs-795Dsgvau_ekxg8g1r&index=3&ab_channel=CursoemV%C3%ADdeo
+
 ## Operation
 ## Home screen
 When initializing the code, the first screen that is presented is the selection menu screen below:
