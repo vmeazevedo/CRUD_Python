@@ -2,15 +2,52 @@ import mysql.connector
 from mysql.connector import errorcode
 from mysql.connector import cursor
 
+# Class connect
+class Connect:
+    def __init__(self,
+    host='localhost',
+    user='root',
+    password='',
+    database='crud2',
+    ):
+        self.host = host
+        self.user = user
+        self.password = password
+        self.database = database
+    
+    def connect(self):
+        try:
+            self.connect = mysql.connector.connect(
+                host=self.host,
+                user=self.user,
+                password=self.password,
+                database=self.database
+            )
+            print("Succesful connection")
+        except Exception as e:
+            print(f"Error{e}")
+            if error.errno == errorcode.ER_BAD_DB_ERROR:
+                print("BD doesnt exists")
+            elif error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                print("The username or password is not valid")
+            else:
+                print(e)
+
+    def close_connection(self):
+        if self.connect:
+            self.connect.close()
+
 ###############################################################################################################
 # Conexão com a base de dados
 ###############################################################################################################
 # Preencher os campos de conexão abaixo
+"""
 host = 'localhost'           
 user = 'root'                
 password = ''                
 
 # Tentando se conectar a base de dados MySQL
+
 try:
 	db_connection = mysql.connector.connect(host = host, user = user, password = password)
 	print("\nConexão com a base de dados realizada!\n")
@@ -22,8 +59,9 @@ except mysql.connector.Error as error:
 	else:
 		print(error)
 
-cursor = db_connection.cursor()
 
+cursor = db_connection.cursor()
+"""
 # Dropando a base de dados
 # cursor.execute("DROP DATABASE Crud2")
 # Criando uma base de dados
